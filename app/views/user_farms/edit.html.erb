@@ -1,0 +1,14 @@
+<%= form_for (@farm), url: {action: "update"} do |f| %>
+  
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div> 
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, size: "60x12" %>
+  </div> 
+  
+  <%= f.submit "Update" %>
+<% end %>
