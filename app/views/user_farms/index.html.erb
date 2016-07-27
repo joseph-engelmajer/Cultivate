@@ -1,0 +1,15 @@
+<h1> Your Farms </h1>
+<ul>
+<% @farms.each do |farm| %>
+	
+		<li>
+	<%= link_to	farm.name, farm_path(farm) %> <br>
+		<%= farm.description %> <br>
+		<%= link_to "Edit Farm", edit_user_farm_path(farm) %>
+		</li>
+	
+<% end %>
+</ul>
+
+<%= link_to "Home", '/' %> <br>
+<%= link_to "Logout", destroy_user_session_path, method: :delete %>

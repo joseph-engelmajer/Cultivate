@@ -1,0 +1,2 @@
+class FavoriteFarm < ApplicationRecord
+end

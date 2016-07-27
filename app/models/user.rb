@@ -7,5 +7,6 @@ class User < ApplicationRecord
   validates :name, presence: :true 
   validates :location, presence: :true 
 
-  has_many :farms      
+  has_many :farms 
+  has_many :comments      
 end

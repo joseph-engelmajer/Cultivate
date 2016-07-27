@@ -1,2 +1,32 @@
 <h2> <%= @farm.name %> </h2> <br>
 <h4> <%= @farm.description %> </h4>
+<ul>
+<% @farm.products.each do |product| %>
+	
+		<li>
+		<%= product.name %>
+		</li>
+	
+<% end %>
+</ul>
+<ul>
+<% @farm.practices.each do |practice| %>
+	
+		<li>
+		<%= practice.name %>
+		</li>
+	
+<% end %>
+</ul>
+<ul>
+<% @farm.purchase_options.each do |product| %>
+	
+		<li>
+		<%= product.name %>
+		</li>
+	
+<% end %>
+</ul>
+
+<%= link_to "Profile", user_path(current_user) %>
+<%= link_to "Edit Farm", edit_user_farm_path(@farm.id) %>
