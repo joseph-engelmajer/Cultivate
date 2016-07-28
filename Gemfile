@@ -1,6 +1,13 @@
 source 'https://rubygems.org'
 
-
+#Sprockets
+# gem 'sprockets'
+# gem 'sprockets-es6', require: "sprockets/es6"
+#Geolocation Handlers
+gem 'underscore-rails'
+gem 'gmaps4rails'
+gem 'geokit-rails'
+gem 'coffee-script'
 #Materialize CSS framework
 gem 'materialize-sass'
 #File Uploader

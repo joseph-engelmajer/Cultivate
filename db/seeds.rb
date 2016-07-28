@@ -44,12 +44,19 @@ farm_stand = PurchaseOption.create(name: "Farm Stand")
 farmers_market = PurchaseOption.create(name: "Farmer's Market")
 restaurant = PurchaseOption.create(name: "Restaurant")
 
-user1 = User.create(name: "JoJo", email:"jojo@jojo.com", password: "password", location:"Jamaica")
-user2 = User.create(name: "Alison", email:"alison@jojo.com", password: "password", location:"New York")
-user3 = User.create(name: "John", email:"john@jojo.com", password: "password", location:"Houston")
-user4 = User.create(name: "Nizar", email:"nizar@jojo.com", password: "password", location:"Narnia")
-user5 = User.create(name: "Gabe", email:"gabe@jojo.com", password: "password", location:"Fayetteville")
+user1 = User.create(name: "JoJo", email:"jojo@jojo.com", password: "password", location:"600 w 51 terr miami beach fl 33140")
+user2 = User.create(name: "Alison", email:"alison@jojo.com", password: "password", location:"120 sw 8 st miami fl")
+user3 = User.create(name: "John", email:"john@jojo.com", password: "password", location:"
+2520 NW 2nd Ave, Miami, FL 33127")
+user4 = User.create(name: "Nizar", email:"nizar@jojo.com", password: "password", location:"5900 NE 1st Ave
+Miami, FL 33137
 
-farm1 = Farm.create(name: "Roots2River", description: "Small family owned farm in the Blue Ridge Mountains of North Carolina", user_id: 5)
-farm2 = Farm.create(name: "In Pursuit of Food", description: "Production farm and agricultural research center nested only 40 minutes outside of NYC.", user_id: 2)
-farm3 = Farm.create(name: "Roots Rock Reggae", description: "Mulberry plantation in the heart of Jamaica", user_id: 1)
+")
+user5 = User.create(name: "Gabe", email:"gabe@jojo.com", password: "password", location:"141 Center St, Jupiter, FL 33458")
+
+farm1 = Farm.create(name: "Roots2River", description: "Small family owned farm in the Blue Ridge Mountains of North Carolina", address: "
+150 NW 183rd St, Miami, FL 33169", user_id: 5)
+farm2 = Farm.create(name: "In Pursuit of Food", description: "Production farm and agricultural research center nested only 40 minutes outside of NYC.", address: "
+17800 Ipco Rd, Miami, FL 33162", user_id: 2)
+farm3 = Farm.create(name: "Roots Rock Reggae", description: "Mulberry plantation in the heart of Jamaica", address: "
+7770 Biscayne Blvd, Miami, FL 33138", user_id: 1)

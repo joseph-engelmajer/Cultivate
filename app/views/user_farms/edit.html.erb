@@ -6,6 +6,11 @@
   </div> 
 
   <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div> 
+
+  <div class="field">
     <%= f.label :description %><br />
     <%= f.text_area :description, size: "60x12" %>
   </div> 
@@ -24,19 +29,18 @@
    <%= f.collection_check_boxes(:practice_ids, Practice.all, :id, :name) %>
   </div> 
 
-  <div class="field">
+  <div class="field js_description_check_boxes">
   <p> Purchase Options </p>	
-   <%= f.collection_check_boxes(:purchase_option_ids, PurchaseOption.all, :id, :name) %>
+   <%= f.collection_check_boxes(:purchase_option_ids, PurchaseOption.all, :id, :name) %> 
   </div> 
 
+  <div class="field js_text_fields_div">
 
   <% @purchase_options.each do |option| %>
-
-  <div class="field">
-    <input type="text" name="option_description[<%=option.id %>]" value="<%= option.purchase_option_joins.where(farm_id: @farm.id).first.try(:option_description) %>">
-  </div> 
-
+    <input class="js_description_field hide_description_field" type="text" name="option_description[<%=option.id %>]" value="<%= option.purchase_option_joins.find_by(farm_id: @farm.id).try(:option_description) %>">
   <% end %>
+
+  </div>
   
   <%= f.submit "Update" %>
 <% end %>

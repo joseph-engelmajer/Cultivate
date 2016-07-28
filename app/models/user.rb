@@ -9,4 +9,6 @@ class User < ApplicationRecord
 
   has_many :farms 
   has_many :comments      
+
+  acts_as_mappable :auto_geocode=>{:field=>:location, :error_message=>'Could not geocode address'}
 end

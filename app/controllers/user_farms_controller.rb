@@ -1,5 +1,7 @@
 class UserFarmsController < ApplicationController
 
+
+
 	def index
 		@farms = current_user.farms
 	end
@@ -17,7 +19,9 @@ class UserFarmsController < ApplicationController
 	def create
 		@farm = current_user.farms.new(
 			:name => params[:farm][:name],
-			:description => params[:farm][:description])
+			:address => params[:farm][:address],
+			:description => params[:farm][:description]
+			)
 		@farm.save	
 
 		if @farm.save
@@ -65,10 +69,17 @@ class UserFarmsController < ApplicationController
 #===============================================================================
 #===============================================================================
 
+	def api
+		
+	end
+
+#===============================================================================
+#===============================================================================
+
 private
 
 	def user_farm_params
-		params.require(:farm).permit(:name, :description,
+		params.require(:farm).permit(:name, :description, :address,
 		 practice_ids:[], purchase_option_ids:[], product_ids:[], avatars: [])
 	end
 

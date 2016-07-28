@@ -28,5 +28,38 @@
 <% end %>
 </ul>
 
+<ul>
+<% @farm.purchase_option_joins.each do |option| %>
+	
+		<li>
+		<%= option.option_description %>
+
+		</li>
+	
+<% end %>
+</ul>
+
+<h3> Comments </h3>
+
+
+<!-- <ul class = "js_comment_list"> -->
+<%# @farm.comments.each do |comment| %>
+	<!-- <li> -->
+	<%#= comment.text %>
+	<!-- </li> -->
+<%# end %>	
+<!-- </ul> -->
+
+<%#= form_for (@farm), url: {action: "create"} do |f| %>
+  
+  <!-- <div class="field"> -->
+    <%#= f.label :comment %><br />
+    <%#= f.text_field :comment %>
+  <!-- </div>  -->
+  
+  <%#= f.submit "Submit", :class => 'js_comment_btn' %>
+<%# end %>
+
+
 <%= link_to "Profile", user_path(current_user) %>
 <%= link_to "Edit Farm", edit_user_farm_path(@farm.id) %>
