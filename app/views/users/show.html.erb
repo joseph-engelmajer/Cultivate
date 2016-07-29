@@ -9,35 +9,62 @@
 </div>
 
 <!-- ====================================================================================================== -->
+<!-- ========== *** Map Filters Logic *** ============================================================== -->
+<!-- ====================================================================================================== -->
+
+<%= form_tag() do |f| %>
+
+	<div class="field">
+		<p> Products </p>	
+	<%	collection_check_boxes(:post, :author_ids, Author.all, :id, :name_with_initial) do |b| %>
+  	<%=	b.label { b.check_box } %>
+		<% end %>
+	</div> 
+
+<% end %>
+
+<!-- ====================================================================================================== -->
 <!-- ========== *** Map Javascript Logic *** ============================================================== -->
 <!-- ====================================================================================================== -->
 
 <script type="text/javascript">
 	$(document).ready(function(){
 
+			mapStyle = [{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"23"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"color":"#f38eb0"}]},{"featureType":"poi.government","elementType":"geometry.fill","stylers":[{"color":"#ced7db"}]},{"featureType":"poi.medical","elementType":"geometry.fill","stylers":[{"color":"#ffa5a8"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#c7e5c8"}]},{"featureType":"poi.place_of_worship","elementType":"geometry.fill","stylers":[{"color":"#d6cbc7"}]},{"featureType":"poi.school","elementType":"geometry.fill","stylers":[{"color":"#c4c9e8"}]},{"featureType":"poi.sports_complex","elementType":"geometry.fill","stylers":[{"color":"#b1eaf1"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":"100"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"},{"lightness":"100"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffd4a5"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffe9d2"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"weight":"3.00"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"weight":"0.30"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"36"}]},{"featureType":"road.local","elementType":"labels.text.stroke","stylers":[{"color":"#e9e5dc"},{"lightness":"30"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":"100"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#d2e7f7"}]}]
+
 
 	var handler = Gmaps.build('Google');
-	handler.buildMap({ internal: {id: 'map'} }, function(){
-		if(navigator.geolocation)
-			navigator.geolocation.getCurrentPosition(displayOnMap);
+	var map;
+	handler.buildMap({ 
+		provider: {
+			zoom: 8,
+			styles: mapStyle
+		},
+		internal: 
+		{id: 'map'} 
+		}, function(){
+			map = handler.getMap();
 
-		$.ajax({
-			type: "GET",
-			url: "/api/farms",
-			success: farm_markers,
-			error: handleError
-		});	
+			if(navigator.geolocation)
+				navigator.geolocation.getCurrentPosition(displayOnMap);
+
+			$.ajax({
+				type: "GET",
+				url: "/api/farms",
+				success: farm_markers,
+				error: handleError
+			});	
 	});
 
  // ====================================================================================================== 
  // ====================================================================================================== 
 
 	function displayOnMap(position){
-	  var marker = handler.addMarker({
+	  var user_location = ({
 	    lat: position.coords.latitude,
 	    lng: position.coords.longitude
 	  });
-	  handler.map.centerOn(marker);
+	  handler.map.centerOn(user_location);
 	};
     
  // ====================================================================================================== 
@@ -51,8 +78,9 @@
  		
 	 	response.forEach(function(the_farm){
 
-	 		var lat = the_farm.lat;
-	 		var lng = the_farm.lng;
+	 		var lat = Number(the_farm.lat);
+	 		var lng = Number(the_farm.lng);
+	 		var coord = {lat: lat, lng: lng}
 	 		var name = the_farm.name;
 
 // =================== Log Tests ========================================================================= 
@@ -63,11 +91,33 @@
 	 		console.log("----------------------------")
  // ====================================================================================================== 
 
-		  	var marker = handler.addMarker({
-		    lat: lat,
-		    lng: lng
-		 	 });
-		  	// handler.map.centerOn(marker)
+		  	  var marker = new google.maps.Marker({
+			    position: coord,
+			    map: map,
+			    title: name
+			  });
+
+ 			
+		  	var contentString = `<div id="content">
+		      <div id="siteNotice">
+		      </div>
+		      <h1 id="firstHeading" class="firstHeading">${name}</h1>
+		      <div id="bodyContent">
+		      <p> ${the_farm.description} </p>
+		      <a href="/farms/${the_farm.id}">
+		      Profile
+		      </a>
+		      </div>
+		      </div>`;
+
+ 			var infowindow = new google.maps.InfoWindow({
+			    content: contentString
+			});
+
+			marker.addListener('click', function() {
+		    infowindow.open(map, marker);
+		  	});
+
  		});	
  	};
 
