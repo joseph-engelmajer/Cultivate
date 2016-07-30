@@ -12,25 +12,59 @@
 <!-- ========== *** Map Filters Logic *** ============================================================== -->
 <!-- ====================================================================================================== -->
 
-<%= form_tag() do |f| %>
-
-	<div class="field">
-		<p> Products </p>	
-	<%	collection_check_boxes(:post, :author_ids, Author.all, :id, :name_with_initial) do |b| %>
-  	<%=	b.label { b.check_box } %>
-		<% end %>
-	</div> 
-
+<% @products.each do |product| %>
+	<input type="checkbox" data-category= "Product" name= "<%= product.name %>" id="<%= product.name %>" value="<%= product.id %>"
+	class="js-filter-box">
+	<label for="<% product.name %>"> <%= product.name %> </label>
 <% end %>
-
-<!-- ====================================================================================================== -->
-<!-- ========== *** Map Javascript Logic *** ============================================================== -->
-<!-- ====================================================================================================== -->
+<br>
+<% @practices.each do |practice| %>
+	<input type="checkbox" data-category= "Practice" name= "<%= practice.name %>" id="<%= practice.name %>" value="<%= practice.id %>"
+	class="js-filter-box">
+	<label for="<% practice.name %>"> <%= practice.name %> </label>
+<% end %>
+<br>
+<% @purchase_options.each do |purchase_option| %>
+	<input type="checkbox" data-category= "PurchaseOption" name= "<%= purchase_option.name %>" id="<%= purchase_option.name %>" value="<%= purchase_option.id %>"
+	class="js-filter-box">
+	<label for="<% purchase_option.name %>"> <%= purchase_option.name %> </label>
+<% end %>
+<br>
 
 <script type="text/javascript">
-	$(document).ready(function(){
+$(document).ready(function(){
 
-			mapStyle = [{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"23"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"color":"#f38eb0"}]},{"featureType":"poi.government","elementType":"geometry.fill","stylers":[{"color":"#ced7db"}]},{"featureType":"poi.medical","elementType":"geometry.fill","stylers":[{"color":"#ffa5a8"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#c7e5c8"}]},{"featureType":"poi.place_of_worship","elementType":"geometry.fill","stylers":[{"color":"#d6cbc7"}]},{"featureType":"poi.school","elementType":"geometry.fill","stylers":[{"color":"#c4c9e8"}]},{"featureType":"poi.sports_complex","elementType":"geometry.fill","stylers":[{"color":"#b1eaf1"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":"100"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"},{"lightness":"100"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffd4a5"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffe9d2"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"weight":"3.00"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"weight":"0.30"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"36"}]},{"featureType":"road.local","elementType":"labels.text.stroke","stylers":[{"color":"#e9e5dc"},{"lightness":"30"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":"100"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#d2e7f7"}]}]
+$( ".js-filter-box" ).click(function() {
+
+	var filterId = $(this).data("value");
+	var allfilterIds = {PurchaseOption:[],
+						Practice:[],
+					    Product:[]}
+		$('.js-filter-box:checked').each(function(index, element){
+			var filterId = parseInt($(element).attr("value"))
+			var category = $(element).attr("data-category")
+			allfilterIds[category].push(filterId)
+		})
+
+		$.ajax({
+			type: "POST",
+			url: "/api/farms",
+			data: allfilterIds,
+			success: farm_markers,
+			error: handleError
+		});
+
+	console.log(allfilterIds)
+
+
+});
+
+// ============================================================================================================== 
+// ================== *** Map Javascript Logic *** ============================================================== 
+// ============================================================================================================== 
+
+
+	mapStyle = [{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"23"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"color":"#f38eb0"}]},{"featureType":"poi.government","elementType":"geometry.fill","stylers":[{"color":"#ced7db"}]},{"featureType":"poi.medical","elementType":"geometry.fill","stylers":[{"color":"#ffa5a8"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#c7e5c8"}]},{"featureType":"poi.place_of_worship","elementType":"geometry.fill","stylers":[{"color":"#d6cbc7"}]},{"featureType":"poi.school","elementType":"geometry.fill","stylers":[{"color":"#c4c9e8"}]},{"featureType":"poi.sports_complex","elementType":"geometry.fill","stylers":[{"color":"#b1eaf1"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":"100"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"},{"lightness":"100"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffd4a5"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffe9d2"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"weight":"3.00"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"weight":"0.30"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"36"}]},{"featureType":"road.local","elementType":"labels.text.stroke","stylers":[{"color":"#e9e5dc"},{"lightness":"30"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":"100"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#d2e7f7"}]}]
 
 
 	var handler = Gmaps.build('Google');
@@ -56,8 +90,8 @@
 			});	
 	});
 
- // ====================================================================================================== 
- // ====================================================================================================== 
+// ====================================================================================================== 
+// ====================================================================================================== 
 
 	function displayOnMap(position){
 	  var user_location = ({
@@ -67,15 +101,21 @@
 	  handler.map.centerOn(user_location);
 	};
     
- // ====================================================================================================== 
- // ====================================================================================================== 
+// ====================================================================================================== 
+// ====================================================================================================== 
 	    
 
- // ====================================================================================================== 
- // ====================================================================================================== 
+// ====================================================================================================== 
+// ====================================================================================================== 
 
  	function farm_markers(response) {
  		
+		function deleteMarkers() {
+		    clearMarkers();
+		    markers = [];
+		}
+
+
 	 	response.forEach(function(the_farm){
 
 	 		var lat = Number(the_farm.lat);
@@ -89,7 +129,7 @@
 	 		console.log(lng)
 	 		console.log(name)
 	 		console.log("----------------------------")
- // ====================================================================================================== 
+// ====================================================================================================== 
 
 		  	  var marker = new google.maps.Marker({
 			    position: coord,
@@ -121,8 +161,8 @@
  		});	
  	};
 
- // ====================================================================================================== 
- // ====================================================================================================== 
+// ====================================================================================================== 
+// ====================================================================================================== 
 
 	function handleError (error) {
 		  console.log("Watch yo Back! We got an urrur");

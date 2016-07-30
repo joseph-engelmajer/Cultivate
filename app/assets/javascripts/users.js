@@ -4,18 +4,25 @@
 
 // $(document).ready(function(){
 
-// 	var handler = Gmaps.build('Google');
-// 	handler.buildMap({ internal: {id: 'geolocation'} }, function(){
-// 	  if(navigator.geolocation)
-// 	    navigator.geolocation.getCurrentPosition(displayOnMap);
-// 	});
+// ====================================================================================================== -->
+// ========== *** Map Filter Logic *** ================================================================= -->
+// ====================================================================================================== -->	
 
-// 	function displayOnMap(position){
-// 	  var marker = handler.addMarker({
-// 	    lat: position.coords.latitude,
-// 	    lng: position.coords.longitude
-// 	  });
-// 	  handler.map.centerOn(marker);
+	// function filterFarms(event) {
+
+	// 	$.ajax({
+	// 		type: "GET",
+	// 		url: "/api/farms",
+	// 		data: allfilterIds,
+	// 		success: filterOptions,
+	// 		error: handleError
+	// 		});
+// 	// };
+
+	
+// 	function handleError (error) {
+// 		console.log("Watch yo Back! We got an urrur");
+// 		console.log(error.responseText);
 // 	};
-    
+
 // });
