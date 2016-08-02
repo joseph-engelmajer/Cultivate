@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728151330) do
+ActiveRecord::Schema.define(version: 20160802031145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,13 +26,20 @@ ActiveRecord::Schema.define(version: 20160728151330) do
   create_table "farms", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "user_id"
     t.json     "avatars"
     t.string   "address"
     t.decimal  "lat"
     t.decimal  "lng"
+    t.text     "product_description"
+    t.string   "insta_link"
+    t.string   "fb_link"
+    t.string   "twitter_link"
+    t.string   "pinterest_link"
+    t.string   "woof_link"
+    t.string   "site_link"
   end
 
   create_table "favorite_farms", force: :cascade do |t|

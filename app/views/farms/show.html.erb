@@ -1,65 +1,116 @@
-<h2> <%= @farm.name %> </h2> <br>
-<h4> <%= @farm.description %> </h4>
-<ul>
-<% @farm.products.each do |product| %>
+<div class="container top-margin">
 	
-		<li>
-		<%= product.name %>
-		</li>
-	
-<% end %>
-</ul>
-<ul>
-<% @farm.practices.each do |practice| %>
-	
-		<li>
-		<%= practice.name %>
-		</li>
-	
-<% end %>
-</ul>
-<ul>
-<% @farm.purchase_options.each do |product| %>
-	
-		<li>
-		<%= product.name %>
-		</li>
-	
-<% end %>
-</ul>
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->
 
-<ul>
-<% @farm.purchase_option_joins.each do |option| %>
-	
-		<li>
-		<%= option.option_description %>
+	<div class="row">
+		<div class="col s3 m3 l3">
+			<% @farm.avatars.each do |the_avatar| %>
 
-		</li>
-	
-<% end %>
-</ul>
+			<img src="<%= the_avatar.url %>" height="300">
+			<% end %>
+		</div>	
 
-<h3> Comments </h3>
+		<div class="col s9 m9 l9 farm-name">
+			<h2> <%= @farm.name %> </h2> <br>
+		</div>
+	</div>
 
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->		
+	<div class="row">	
+		<div class="col s12 m12 l12">
+			<h3>Philosophy</h3>
+			<h6> <%= @farm.description %> </h6>
+		</div>
+	</div>
 
-<!-- <ul class = "js_comment_list"> -->
-<%# @farm.comments.each do |comment| %>
-	<!-- <li> -->
-	<%#= comment.text %>
-	<!-- </li> -->
-<%# end %>	
-<!-- </ul> -->
-
-<%#= form_for (@farm), url: {action: "create"} do |f| %>
-  
-  <!-- <div class="field"> -->
-    <%#= f.label :comment %><br />
-    <%#= f.text_field :comment %>
-  <!-- </div>  -->
-  
-  <%#= f.submit "Submit", :class => 'js_comment_btn' %>
-<%# end %>
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->	
+	<div class="row">	
+		<ul class="inline-list">
+			<% @farm.products.each do |product| %>
+				
+					<li>
+					<%= product.name %>
+					</li>
+				
+			<% end %>
+		</ul>
+		<%= @farm.product_description %>
+	</div>
 
 
-<%= link_to "Profile", user_path(current_user) %>
-<%= link_to "Edit Farm", edit_user_farm_path(@farm.id) %>
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->
+
+	<div class="row">
+		<ul class="inline-list">
+		<% @farm.practices.each do |practice| %>
+			
+				<li>
+				<%= practice.name %>
+				</li>
+			
+		<% end %>
+		</ul>
+	</div>
+
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->
+
+	<div class="row">	
+		<ul>
+			<% @farm.purchase_option_joins.each do |option| %>
+
+				<div id= "<%= option.purchase_option_id %>" class="modal">
+				    <div class="modal-content">
+
+				      <p> <%= option.option_description %></p>
+
+				    </div>
+			  	</div>
+			
+				<button data-target="<%= option.purchase_option_id %>" class="top-margin inline modal-trigger waves-effect waves-light btn green accent-4" data-id="<%= option.purchase_option_id %>">
+					<%= option.purchase_option.name %>
+				</button>		
+
+			<% end %>
+		</ul>
+	</div>
+
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->
+
+	<% unless @farm.insta_link == "" && @farm.fb_link == "" && @farm.pinterest_link == "" && @farm.twitter_link == "" && @farm.woof_link == "" && @farm.site_link == "" %>
+		<div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+		    <a class="btn-floating btn-large green accent-4">
+		      <i class="large material-icons">menu</i>
+		    </a>
+		    <ul>
+			    <% unless @farm.insta_link == "" %>
+			      <li><a href="http://www.<%= @farm.insta_link %>" target="_blank"><i class="material-icons"><img src="/assets/instagram.png"></i></a></li>
+			    <% end %>  
+			    <% unless @farm.fb_link == "" %>
+			      <li><a href="http://www.<%= @farm.fb_link %>" target="_blank"><i class="material-icons"><img src="/assets/facebook.png"></i></a></li>
+			    <% end %>
+			    <% unless @farm.pinterest_link == "" %>
+			      <li><a href="http://www.<%= @farm.pinterest_link %>" target="_blank"><i class="material-icons"><img src="/assets/pinterest.png"></i></a></li>
+			    <% end %>
+			    <% unless @farm.twitter_link == "" %>
+			      <li><a href="http://www.<%= @farm.twitter_link %>" target="_blank"><i class="material-icons"><img src="/assets/twitter.png"></i></a></li>
+			    <% end %>
+			    <% unless @farm.woof_link == "" %>
+			      <li><a href="http://www.<%= @farm.woof_link %>" target="_blank"><i class="material-icons"><img src="/assets/volunteer.png"></i></a></li>
+			    <% end %>
+			    <% unless @farm.site_link == "" %>
+			      <li><a href="http://www.<%= @farm.site_link %>" target="_blank"><i class="material-icons"><img src="/assets/rss.png"></i></a></li>
+			    <% end %>
+		    </ul>
+	  	</div>
+	<% end %>  			
+
+<!-- ========================================================================================================= -->
+<!-- ========================================================================================================= -->
+
+</div>

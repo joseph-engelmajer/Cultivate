@@ -5,19 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-veggies = Product.create(name: "Vegetbales")
+veggies = Product.create(name: "Vegetables")
 fruits = Product.create(name: "Fruits")
 nuts = Product.create(name: "Nuts")
 honey = Product.create(name: "Honey")
 legumes = Product.create(name: "Legumes")
 dairy = Product.create(name: "Dairy")
-meat = Product.create(name: "meat")
+meat = Product.create(name: "Meat")
+prepared_foods = Product.create(name: "Prepared Foods")
 
 #================================================================================================================================================================================================================================================
 #================================================================================================================================================================================================================================================
 
-crop_rotation = Practice.create(name: "Crop Rotation", description: "Crop rotation is the practice of growing a series of dissimilar or different types of crops in the same area
- in sequenced seasons.It is done so that the soil of farms is not used to only one type of nutrient. It helps in reducing soil erosion and increases soil fertility and crop yield. Source:Wikipedia")
+crop_rotation = Practice.create(name: "Crop Rotation", description: "The proccess of sowing a different crop family in each bed, plot, or row each season.")
 certified_organic = Practice.create(name: "Certified Organic", description: "Organic is a labeling term for food or other agricultural products that have been
 produced according to the USDA organic regulations. These standards require the
 integration of cultural, biological, and mechanical practices that foster cycling of
@@ -25,14 +25,20 @@ resources, promote ecological balance, and conserve biodiversity. This means tha
 operations must maintain or enhance soil and water quality while also conserving wetlands,
 woodlands, and wildlife. Synthetic fertilizers, sewage sludge, irradiation, and genetic engineering
 may not be used. Source:USDA")
-low_input = Practice.create(name: "Low Input", description: "Low input farming systems 'seek to optimize the management and use of internal production inputs (i.e. on-farm resources)... 
-and to minimize the use of production inputs (i.e. off-farm resources), such as purchased fertilizers and pesticides, wherever and whenever feasible and practicable, to lower production costs,
-to avoid pollution of surface and groundwater, to reduce pesticide residues in food, to reduce a farmer's overall risk, and to increase both short- and long-term farm profitability.' [JF Parr et al.,
-'Sustainable Agriculture in the United States,' in Sustainable Agricultural Systems, ed. by Clive A. Edwards, et al. (Ankeny IA: Soil and Water Conservation Society, 1990), p. 52. NAL Call # S494.5 S86S86]")
-aquaponic = Practice.create(name: "Aquaponic", description: "Aquaponics /ˈækwəˈpɒnᵻks/, refers to any system that combines conventional aquaculture (raising aquatic animals such as snails, fish, crayfish or prawns in tanks)
-with hydroponics (cultivating plants in water) in a symbiotic environment. In normal aquaculture, excretions from the animals being raised can accumulate in the water, increasing toxicity. In an aquaponic system, water from 
-an aquaculture system is fed to a hydroponic system where the by-products are broken down by Nitrifying bacteria into nitrates and nitrites, which are utilized by the plants as nutrients, and the water is then recirculated back to the aquaculture system.")
-hydroponic = Practice.create(name: "Hydroponic", description: "the cultivation of plants by placing the roots in liquid nutrient solutions rather than in soil; soilless growth of plants.")
+no_input = Practice.create(name: "Zero Input", description: "Describes a farm that uses less than 5% of it's materials from sources outside the farm or nearby farming community.")
+biodynamic = Practice.create(name: "Byodynamic", description: "Describes a cultivation method based on the phases of the moon and recycled fertility.")
+sustainable = Practice.create(name: "Sustainable", description: "A farm that produces more energy than it consumes, as well as having a net positive impact on CO2.")
+no_till = Practice.create(name: "No Till", description: "Cultivating without turning the soil over (land may be tilled a couple of times when first prepping a plot for cultivation and still be considered no till).")
+hydroponic = Practice.create(name: "Hydroponic", description: "The method of using non-soil growing mediums to cultivate crops.")
+cover_crop = Practice.create(name: "Cover Cropping", description: "The method of growing crops to return fertility to the soil in between usual cash crops. Also helps in water retention and to prevent soil errosion.")
+interplanting = Practice.create(name: "Interplanting", description: "The method of planting multiple plant families in the same row, bed, or plot. Increases soil fertility and helps defend against pests due to benificial relationships between plant families, but makes harvesting more difficult.")
+mulching = Practice.create(name: "Mulching", description: "The method of covering soil rather than leaving it bare to protect the soil from sun exposure, increase water retention, and provide nutrients for soil microorganisms. (similar to cover-cropping)")
+composting = Practice.create(name: "Composting", description: "The proccess ofusing discarded materials to create an ammendment added directly to the soil to increase fertility.")
+bio_intensive = Practice.create(name: "Biointensive Cultivation", description: "The method of sowing crops closer than usual to maximize the production of a given plot of land.")
+bio_diverse = Practice.create(name: "Biodiverse", description: "The principle of cultivating as many different species or plant families as possible in close proximity to each other.")
+harvest_on_time = Practice.create(name: "Harvested on Time", description: "When crops are harvested at the appropriate time, rather than prematurely to extend shelf-life")
+full_cycle = Practice.create(name: "Full Cycle Farming", description: "The proccess of reusing all fertility produced on the farm, including human excrement used in compost. (similar to zero-input)")
+cover_crop_utilization = Practice.create(name: "Cover Crop Utilization", description: "The method of harvesting cover crops for consumption by humans or animals.")
 
 #================================================================================================================================================================================================================================================
 #================================================================================================================================================================================================================================================

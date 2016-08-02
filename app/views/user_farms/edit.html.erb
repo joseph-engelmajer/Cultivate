@@ -1,46 +1,121 @@
-<%= form_for(@farm, url: {action: "update"}) do |f| %>
+<div class="container top-padding">
   
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div> 
+  <%= form_for(@farm, url: {action: "update"}) do |f| %>
+   
+    <div class="row">
+      
+      <div class="col s4 m4 l4">
+        <div class="input-field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name, autofocus: true %>
+        </div> 
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div> 
+        <div class="input-field">
+          <%= f.label :address %><br />
+          <%= f.text_field :address %>
+        </div> 
 
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, size: "60x12" %>
-  </div> 
-	
-  <div class="field">	
-  <%= f.file_field :avatars, multiple: true %>	
+        <div class="card bottom-margin">
+          <div class="card-content white-text">
+            <span class="card-title">Upload Photos</span>
+              <div class="input-field"> 
+                <%= f.file_field :avatars, multiple: true %> 
+              </div>
+          </div>
+        </div>   
+
+        <div class="input-field">
+          <%= f.label :description, :class => "top-margin" %><br />
+          <%= f.text_area :description, size: "60x100", placeholder: "This will be displayed as your farm's philosophy" %>
+        </div> 
+      </div>
+
+      <div class="col s6 m6 l6 offset-s2 offset-m2 offset-l2">
+        <ul class="collection with-header">
+          <li class="collection-header"><h6>Social Media Links</h6></li>
+         
+          <li class="collection-item">    
+            <div class="input-field">
+              <%= f.text_field :insta_link, placeholder: "Instagram" %>
+            </div> 
+          </li>
+
+          <li class="collection-item">
+            <div class="input-field">
+              <%= f.text_field :fb_link, placeholder: "Facebook" %>
+            </div> 
+          </li>
+
+          <li class="collection-item">
+            <div class="input-field">
+              <%= f.text_field :twitter_link, placeholder: "Twitter" %>
+            </div> 
+          </li>
+
+          <li class="collection-item">
+            <div class="input-field">
+              <%= f.text_field :pinterest_link, placeholder: "Pinterest" %>
+            </div> 
+          </li>
+
+          <li class="collection-item">
+            <div class="input-field">
+              <%= f.text_field :woof_link, placeholder: "WWOOF" %>
+            </div>
+          </li>
+
+          <li class="collection-item">
+            <div class="input-field">
+              <%= f.text_field :site_link, placeholder: "Website" %>
+            </div> 
+          </li> 
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col s12 m12 l12">
+          <p> Products </p>
+          <%= f.collection_check_boxes(:product_ids, Product.all, :id, :name) %> 
+        </div> 
+    </div> 
+
+    <div class="row">
+      <div class="input-field col s12 m12 l12">
+        <%= f.label :product_description %><br />
+        <%= f.text_area :product_description, size: "60x12", placeholder: "Add a description about your products (ie. Our farm has half of an acre in vegetable production, 10 dairy cows, and 100 laying hens)" %>
+      </div> 
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m12 l12">
+        <p> Farming Practices </p>	
+        <%= f.collection_check_boxes(:practice_ids, Practice.all, :id, :name) %>
+      </div> 
+    </div>  
+
+      <div class="input-field js_description_check_boxes">
+        <p> Purchase Options </p>	
+        <%= f.collection_check_boxes(:purchase_option_ids, PurchaseOption.all, :id, :name) %>
+      </div> 
+
+   
+
+        <div class="input-field js_text_fields_div col s12">
+          <% @purchase_options.each do |option| %>
+            <input class="js_description_field hide_description_field input-field" type="text_area" size="60x12" name="option_description[<%=option.id %>]" value="<%= option.purchase_option_joins.find_by(farm_id: @farm.id).try(:option_description) %>" placeholder="Add a description for your <%=option.name%>">
+          <% end %>
+     
+  <div class="row">
+    <div class="top-margin">
+      <%= f.submit "Update", :class => "waves-effect waves-light btn btn green accent-4" %>
+      <% end %>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-  <p> Products </p>	
-   <%= f.collection_check_boxes(:product_ids, Product.all, :id, :name) %>
-  </div> 
 
-  <div class="field">
-  <p> Farming Practices </p>	
-   <%= f.collection_check_boxes(:practice_ids, Practice.all, :id, :name) %>
-  </div> 
 
-  <div class="field js_description_check_boxes">
-  <p> Purchase Options </p>	
-   <%= f.collection_check_boxes(:purchase_option_ids, PurchaseOption.all, :id, :name) %> 
-  </div> 
 
-  <div class="field js_text_fields_div">
 
-  <% @purchase_options.each do |option| %>
-    <input class="js_description_field hide_description_field" type="text" name="option_description[<%=option.id %>]" value="<%= option.purchase_option_joins.find_by(farm_id: @farm.id).try(:option_description) %>">
-  <% end %>
-
-  </div>
-  
-  <%= f.submit "Update" %>
-<% end %>

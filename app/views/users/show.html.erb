@@ -1,38 +1,80 @@
-<h2>
-<%= @user.name %><br>
-<%= @user.location %><br>
-<%= @user.email %>
-</h2>
 
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+<div class="row">
+
+
+<div class="col s4 m4 l4">
+	<h6>
+	<%= @user.name %><br>
+	<%= @user.location %>
+	</h6>
+
+    <ul class="collapsible" data-collapsible="expandable">
+        <li> 
+			<div class="collapsible-header">
+				Filter by Products
+			</div>
+			<div class="collapsible-body">
+	        	<% @products.each do |product| %>
+	        	
+					<input type="checkbox" data-category= "Product" name= "<%= product.name %>" id="<%= product.id %>" value="<%= product.id %>" class="js-filter-box">
+					<label for="<%= product.id %>"> <%= product.name %> </label>
+					<br>
+				<% end %>
+			</div>
+		</li>
+
+		<li> 
+			<div class="collapsible-header">
+				Filter by Farming Practices
+			</div>
+			<div class="collapsible-body">
+				<% @practices.each do |practice| %>
+					<input type="checkbox" data-category= "Practice" name= "<%= practice.name %>" id="<%= practice.name %>" value="<%= practice.id %>"
+					class="js-filter-box">
+					<label class="tooltipped" data-position="right" data-tooltip="<%= practice.description %>" for="<%= practice.name %>"> <%= practice.name %> </label>
+					<br>
+				<% end %>
+			</div>	
+		</li>
+		
+		<li>
+			<div class="collapsible-header">
+				Filter by Purchase Options
+			</div>
+			<div class="collapsible-body">
+				<% @purchase_options.each do |purchase_option| %>
+					<input type="checkbox" data-category= "PurchaseOption" name= "<%= purchase_option.name %>" id="<%=
+					purchase_option.name %>" value="<%= purchase_option.id %>"
+					class="js-filter-box">
+					<label for="<%= purchase_option.name %>"> <%= purchase_option.name %> </label>
+					<br>
+				<% end %>
+			</div>
+		</li>	
+	</ul>	
+ </ul>	
 </div>
 
-<!-- ====================================================================================================== -->
-<!-- ========== *** Map Filters Logic *** ============================================================== -->
-<!-- ====================================================================================================== -->
+      <div class="col s8 m8 l8">
+        
+		<div>
+		  <div class="z-depth-1" id="map" style='width: 100%; height: calc(100vh - 64px);'></div>
+		</div>
+     </div>
 
-<% @products.each do |product| %>
-	<input type="checkbox" data-category= "Product" name= "<%= product.name %>" id="<%= product.name %>" value="<%= product.id %>"
-	class="js-filter-box">
-	<label for="<% product.name %>"> <%= product.name %> </label>
-<% end %>
-<br>
-<% @practices.each do |practice| %>
-	<input type="checkbox" data-category= "Practice" name= "<%= practice.name %>" id="<%= practice.name %>" value="<%= practice.id %>"
-	class="js-filter-box">
-	<label for="<% practice.name %>"> <%= practice.name %> </label>
-<% end %>
-<br>
-<% @purchase_options.each do |purchase_option| %>
-	<input type="checkbox" data-category= "PurchaseOption" name= "<%= purchase_option.name %>" id="<%= purchase_option.name %>" value="<%= purchase_option.id %>"
-	class="js-filter-box">
-	<label for="<% purchase_option.name %>"> <%= purchase_option.name %> </label>
-<% end %>
-<br>
+  </div>
+
+<!-- ============================================================================================================== ================== *** Map Javascript Logic *** ============================================================== 
+==============================================================================================================  -->
+
+          
 
 <script type="text/javascript">
+
 $(document).ready(function(){
+
+
+var markerArray = [];
 
 $( ".js-filter-box" ).click(function() {
 
@@ -47,6 +89,7 @@ $( ".js-filter-box" ).click(function() {
 		})
 
 		$.ajax({
+			
 			type: "POST",
 			url: "/api/farms",
 			data: allfilterIds,
@@ -54,14 +97,8 @@ $( ".js-filter-box" ).click(function() {
 			error: handleError
 		});
 
-	console.log(allfilterIds)
-
-
 });
 
-// ============================================================================================================== 
-// ================== *** Map Javascript Logic *** ============================================================== 
-// ============================================================================================================== 
 
 
 	mapStyle = [{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"23"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"color":"#f38eb0"}]},{"featureType":"poi.government","elementType":"geometry.fill","stylers":[{"color":"#ced7db"}]},{"featureType":"poi.medical","elementType":"geometry.fill","stylers":[{"color":"#ffa5a8"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#c7e5c8"}]},{"featureType":"poi.place_of_worship","elementType":"geometry.fill","stylers":[{"color":"#d6cbc7"}]},{"featureType":"poi.school","elementType":"geometry.fill","stylers":[{"color":"#c4c9e8"}]},{"featureType":"poi.sports_complex","elementType":"geometry.fill","stylers":[{"color":"#b1eaf1"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":"100"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"},{"lightness":"100"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffd4a5"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffe9d2"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"weight":"3.00"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"weight":"0.30"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#747474"},{"lightness":"36"}]},{"featureType":"road.local","elementType":"labels.text.stroke","stylers":[{"color":"#e9e5dc"},{"lightness":"30"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":"100"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#d2e7f7"}]}]
@@ -76,8 +113,14 @@ $( ".js-filter-box" ).click(function() {
 		},
 		internal: 
 		{id: 'map'} 
-		}, function(){
-			map = handler.getMap();
+		}, popMap
+		);
+
+
+// ====================================================================================================== 
+// ====================================================================================================== 
+	function popMap(){ 
+		map = handler.getMap();
 
 			if(navigator.geolocation)
 				navigator.geolocation.getCurrentPosition(displayOnMap);
@@ -88,7 +131,7 @@ $( ".js-filter-box" ).click(function() {
 				success: farm_markers,
 				error: handleError
 			});	
-	});
+	};
 
 // ====================================================================================================== 
 // ====================================================================================================== 
@@ -103,18 +146,13 @@ $( ".js-filter-box" ).click(function() {
     
 // ====================================================================================================== 
 // ====================================================================================================== 
-	    
-
-// ====================================================================================================== 
-// ====================================================================================================== 
 
  	function farm_markers(response) {
- 		
-		function deleteMarkers() {
-		    clearMarkers();
-		    markers = [];
-		}
 
+
+		markerArray.forEach(function(one_marker){
+			one_marker.setMap(null)
+		});
 
 	 	response.forEach(function(the_farm){
 
@@ -122,33 +160,33 @@ $( ".js-filter-box" ).click(function() {
 	 		var lng = Number(the_farm.lng);
 	 		var coord = {lat: lat, lng: lng}
 	 		var name = the_farm.name;
+		  	
+	
+	  	  var marker = new google.maps.Marker({
+		    position: coord,
+		    map: map,
+		    title: name
+		  });
 
-// =================== Log Tests ========================================================================= 
-	 		console.log("---------EACH FARM----------")
-	 		console.log(lat)
-	 		console.log(lng)
-	 		console.log(name)
-	 		console.log("----------------------------")
-// ====================================================================================================== 
+		  markerArray.push(marker)
+		  	console.log("~~~~~~~~markerarray~~~~~~~~~")
+			console.log(markerArray)
+			console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
-		  	  var marker = new google.maps.Marker({
-			    position: coord,
-			    map: map,
-			    title: name
-			  });
 
  			
-		  	var contentString = `<div id="content">
-		      <div id="siteNotice">
-		      </div>
-		      <h1 id="firstHeading" class="firstHeading">${name}</h1>
-		      <div id="bodyContent">
-		      <p> ${the_farm.description} </p>
-		      <a href="/farms/${the_farm.id}">
-		      Profile
-		      </a>
-		      </div>
-		      </div>`;
+		  	var contentString = 
+		  	`<div id="iw-container">
+		      	<div class="iw-title">
+		      		${name}
+		      	</div>
+			      <div class="iw-body">
+				      <p> ${the_farm.description} </p>
+				      <a href="/farms/${the_farm.id}" class="waves-effect waves-light btn green accent-4">
+				      Profile
+				      </a>
+			      </div>
+		    </div>`;
 
  			var infowindow = new google.maps.InfoWindow({
 			    content: contentString
@@ -171,12 +209,3 @@ $( ".js-filter-box" ).click(function() {
 
 });
 </script>
-
-<!-- ====================================================================================================== -->
-<!-- ====================================================================================================== -->
-<!-- ====================================================================================================== -->
-
-
-<%= link_to "Create a Farm", new_user_farm_path %><br>
-<%= link_to "My Farms", user_farms_path %><br>
-<%= link_to "Logout", destroy_user_session_path, method: :delete %>

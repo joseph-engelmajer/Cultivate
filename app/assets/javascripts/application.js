@@ -14,4 +14,18 @@
 //= require jquery_ujs
 //= require underscore
 //= require gmaps/google
+//= require materialize-sprockets
 //= require_tree .
+
+
+// Collapsible accordion
+  $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+
+    $('.nav-wrapper .row').pushpin({ top: $('.nav-wrapper').offset().top });
+
+     $('.modal-trigger').leanModal();
+  
+  });

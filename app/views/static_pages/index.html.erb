@@ -1,62 +1,65 @@
 
-<h2> Welcome to Cultivate </h2>
-<h6> 
-Where we help you Cultivate relationships with local farms
-</h6>
+<div class="bg blue-grey lighten-3">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 l6">
+      <div class="home-about"> 
+         <h3> Welcome to Cultivate </h3>
+        <ul>
+          <li>
+            <p>We help you connect with local farms</p>
+          </li>
+           <li>
+            <p>Filter farms based on products, farming practices, and purchase options</p>
+          </li>
+           <li>
+            <p>Do you own a farm? Sign up with us to make a profile and help local, food concious, consumers connect with you!</p>
+          </li>
+        </ul>
+      </div>
+      </div>
+      <div class="col s12 m6 l6">
+        <div class="card blue-grey">
+          <div class="card-content white-text">
+            <span class="card-title">Sign Up</span>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
 
-<h2>Sign up</h2>
+             <div class="input-field">
+              <%= f.label :name, :class => "grey-text text-lighten-1" %><br />
+              <%= f.text_field :name, :class => "validate", autofocus: true %>
+            </div> 
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+            <div class="input-field">
+              <%= f.label :email, :class => "grey-text text-lighten-1" %><br />
+              <%= f.email_field :email, :class => "validate" %>
+            </div>
 
-   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div> 
+             <div class="input-field">
+              <label class="grey-text text-lighten-1" for="location">Address</label><br />
+              <%= f.text_field :location, :class => "validate" %>
+            </div> 
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
+            <div class="input-field">
+              <%= f.label :password, :class => "grey-text text-lighten-1" %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %><br />
+              <%= f.password_field :password, :class => "validate", autocomplete: "off" %>
+            </div>
+
+            <div class="input-field">
+              <%= f.label :password_confirmation, :class => "grey-text text-lighten-1" %><br />
+              <%= f.password_field :password_confirmation, :class => "validate", autocomplete: "off" %>
+            </div>
+
+            <div class="card-action">
+            <%= f.submit "Sign up", :class => "waves-effect waves-light btn" %>
+            </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
   </div>
-
-   <div class="field">
-    <label for="location">Address</label><br />
-    <%= f.text_field :location %>
-  </div> 
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= link_to "Log In", new_user_session_path %> <br> 
-<%= link_to "Logout", destroy_user_session_path, method: :delete %> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>

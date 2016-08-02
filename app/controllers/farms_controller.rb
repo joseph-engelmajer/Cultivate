@@ -7,6 +7,7 @@ protect_from_forgery with: :null_session, only: [:get_farms]
 
 	def show
 		@farm = Farm.find_by(id: params[:id])
+		@farm_id = @farm.id
 	end
 
 #===============================================================================
@@ -25,21 +26,25 @@ protect_from_forgery with: :null_session, only: [:get_farms]
 				.select("farms.*, COUNT(product_id)")
 				.group("farms.id")
 				.having("COUNT(product_id) >= ?", product.length)
-
-
-			# ProductJoin.where(product_id: product)
-			# .uniq{|pj| pj.farm_id}
-			# .map{|pj| pj.farm}
 		end	
 
-		# if purchase_option.present? && purchase_option.length > 0 
-		# 	farms = farms.where()	
-		# end	
+		unless purchase_option.nil? || purchase_option.empty?
+			farms = Farm.joins(:purchase_option_joins)
+				.where(:purchase_option_joins => { :purchase_option_id => purchase_option })
+				.select("farms.*, COUNT(purchase_option_id)")
+				.group("farms.id")
+				.having("COUNT(purchase_option_id) >= ?", purchase_option.length)
+		end	
 
-		# if practice.present? && practice.length > 0 
-		# 	farms = farms.where()
-		# end
+		unless practice.nil? || practice.empty?
+			farms = Farm.joins(:practice_joins)
+				.where(:practice_joins => { :practice_id => practice })
+				.select("farms.*, COUNT(practice_id)")
+				.group("farms.id")
+				.having("COUNT(practice_id) >= ?", practice.length)
+		end	
 
+		p farms.to_json
 		render json: farms
 	end
 

@@ -1,15 +1,20 @@
-<h1> Your Farms </h1>
-<ul>
-<% @farms.each do |farm| %>
-	
-		<li>
-	<%= link_to	farm.name, farm_path(farm) %> <br>
-		<%= farm.description %> <br>
-		<%= link_to "Edit Farm", edit_user_farm_path(farm) %>
-		</li>
-	
-<% end %>
-</ul>
+<div class="container">
+	<h1> Your Farms </h1>
+	<br>
+	<%= link_to "Create a New Farm", new_user_farm_path, :class => "waves-effect waves-light btn blue-grey" %>
 
-<%= link_to "Home", '/' %> <br>
-<%= link_to "Logout", destroy_user_session_path, method: :delete %>
+	<ul class="collapsible" data-collapsible="accordion">
+		<% @farms.each do |farm| %>
+			<li>
+				<div class="collapsible-header">
+					<%= farm.name %>
+				</div>
+				<div class="collapsible-body">
+					<%= farm.description %> <br>
+					<%= link_to "Edit Farm", edit_user_farm_path(farm) %><br>
+					<%= link_to farm.name, farm_path(farm) %>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+</div>

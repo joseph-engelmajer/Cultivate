@@ -16,7 +16,103 @@
 	display: none;
 }
 
-/*@import "materialize/extras/nouislider";
+@import "materialize/components/color";
+/*$primary-color: color("blue", "lighten-2") !default;*/
 @import 'materialize';
-@import "**";
-*/
+/*
+@import "**";*/
+
+
+#iw-container  .iw-title {
+   font-family: 'Open Sans Condensed', sans-serif;
+   font-size: 16px;
+   font-weight: 400;
+   padding: 10px;
+   background-color: rgb(21,113,171);
+   color: white;
+   margin: 1px;
+   border-radius: 2px 2px 0 0; /* In accordance with the rounding of the default infowindow corners. */
+}
+
+
+nav{
+	background-color: rgba(21,113,171,0.82);
+	border: 0;
+	box-shadow: none;
+	z-index: 999;
+}
+
+.card {
+	background-color: rgba(21,113,171,0.82);
+	border: 0;
+}
+
+[type="checkbox"] + label {
+
+	height: 10px !important;
+	width: 10px !important;
+	padding-left: -1px;
+	margin:  10px !important;
+	display: inline;
+}
+
+
+.farm-name {
+	margin-top: 20%;
+}
+
+
+.inline-list {
+	display:inline !important; 
+}
+
+
+
+
+.home-about {
+	padding-top: 100px;
+}
+
+
+.top-padding {
+	padding-top: 15px;
+}
+
+.bottom-padding {
+	padding-bottom: 15px;
+}
+
+.left-padding {
+	padding-left: 15px;
+}
+
+.right-padding {
+	padding-right: 15px;
+}
+
+.around-padding {
+	padding: 15px;
+}
+
+.top-margin {
+	margin-top: 15px;
+}
+
+.bottom-margin {
+	margin-bottom: 15px;
+}
+
+.left-margin {
+	margin-left: 15px;
+}
+
+.right-margin {
+	margin-right: 15px;
+}
+
+.around-margin {
+	margin: 15px !important;
+}
+
+
+
